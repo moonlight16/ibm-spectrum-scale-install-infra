@@ -1,0 +1,21 @@
+---
+# Configure AFM Gateway
+#- name: configure | DEBUG
+#  debug: var=hostvars[inventory_hostname]
+
+- name: configure | Find Gateway nodes
+  add_host:
+    name: "{{ item }}"
+    groups: gateway_nodes
+  when: hostvars[inventory_hostname].scale_cluster_gateway | bool
+  with_items: "{{ ansible_play_hosts }}"
+  changed_when: false
+
+- name: configure | Debug
+  debug:
+    msg: "{{ item }}"
+  with_items: "{{ groups['gateway_nodes'] }}"
+
+- name: configure | Set Gateway nodes
+  command: /usr/lpp/mmfs/bin/mmchnode -N {{ item }} --gateway
+  with_items: "{{ groups['gateway_nodes'] }}"

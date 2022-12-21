@@ -1,0 +1,7 @@
+---
+# Configure IBM Spectrum Scale AFM Gateway
+
+- import_tasks: configure.yml
+  when:
+    - scale_cluster_gateway | bool
+  tags: configure

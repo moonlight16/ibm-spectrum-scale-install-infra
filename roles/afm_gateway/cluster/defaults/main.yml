@@ -1,0 +1,4 @@
+---
+## Node's default Gateway role -
+## you'll likely want to define per-node roles in your inventory
+scale_cluster_gateway: false
